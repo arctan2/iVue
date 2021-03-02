@@ -29,13 +29,13 @@ export default {
       setTimeout(() => {
         gsap.timeline()
           .to('.logo', {pointerEvents: 'none'})
-          .to(`.${this.theme}-text-m`, {opacity: 1, duration: 1, delay: 0.1, ease: 'power3.in'})
+          .to(`.${this.theme}-text-m`, {opacity: 1, duration: 1, ease: 'power3.in'})
           .to('.vue', {width: "100%"})
-          .to('.vue', {opacity: 1, ease: 'power2.out'}, '-=0.2')
+          .to('.vue', {opacity: 1, ease: 'power2.out'})
           .to('.vue', {overflowX: 'visible'})
           .to('.fade-text', {width: '100%', duration: 1, ease: 'power3.in'})
-          .to('.fade-text', {opacity: 1, ease: 'power3.out', duration: 2})
-          .to('.fade-text', {width: 0, scaleY: 0.8, scaleX: 0.8, delay: 0.2, duration: 0.8})
+          .to('.fade-text', {opacity: 1, ease: 'power3.out', duration: 1.6})
+          .to('.fade-text', {width: 0, duration: 0.8, ease: 'power5.in'})
           .call(() => {
             this.$emit('introend');
             this.isIntro = false;

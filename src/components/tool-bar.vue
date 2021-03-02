@@ -74,7 +74,6 @@ export default {
 .tool-bar{
   display: flex;
   flex-direction: row;
-  margin-right: 10%;
   height: 80%;
   width: 0px;
   border-radius: 8px;
@@ -88,13 +87,19 @@ export default {
 }
 
 .dark-tool-bar{
+  margin-right: 10%;
   background-color: rgb(37, 36, 36);
-  box-shadow: 0 0 4px rgb(81, 82, 81);
+  box-shadow: 0 0 3px rgb(168, 72, 233);
+  border-right: 3px solid rgb(116, 6, 219);
+  border-left: 3px solid rgb(116, 6, 219);
 }
 
 .light-tool-bar{
+  margin-right: 10%;
   background-color: rgb(203, 192, 214);
-  box-shadow: 0 0 4px rgb(42, 43, 42);
+  box-shadow: 0 0 4px rgb(42, 43, 43);
+  border-right: 3px solid rgb(32, 32, 32);
+  border-left: 3px solid rgb(32, 32, 32);
 }
 
 .operations{

@@ -61,7 +61,7 @@ export default {
     theme(){
       if(this.isIntro)
         gsap.timeline()
-          .to('.top-bar', {y: '100%', display: 'flex', opacity: 1, duration: 0.8})
+          .to('.top-bar', {y: '100%', display: 'flex', opacity: 1, duration: 1.3})
           .call(() => {
             this.logoTheme = this.theme;
             this.isIntro = false;
@@ -142,7 +142,7 @@ export default {
 }
 
 .dark{
-  background: linear-gradient(150deg, rgb(37, 38, 43), rgb(38, 43, 37));
+  background: linear-gradient(150deg, rgb(39, 38, 46), rgb(51, 51, 51));
   border-bottom: 1px solid rgb(174, 50, 231);
   box-shadow: 0 0 6px rgb(68, 61, 68);
 }

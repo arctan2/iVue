@@ -116,13 +116,14 @@ export default {
   position: absolute;
   top: 50%;
   right: 50%;
-  background: linear-gradient(50deg, rgb(239, 196, 245), rgb(204, 193, 204));
+  background: linear-gradient(50deg, rgb(243, 242, 248), rgb(190, 190, 196));
   box-shadow: 0 0 10px rgb(19, 18, 18);
   width: 75vw;
   height: 80vh;
   overflow: hidden;
   transform: translate(50%, -50%) scale(1, 1);
   border-radius: 5px;
+  border-left: 5px solid rgb(7, 223, 133);
   color: rgb(36, 33, 33);
   user-select: none;
   border-radius: 5px;
@@ -160,11 +161,13 @@ export default {
   0%{
     transform: translate(50%, -50%) scale(0.8, 0.8);
     opacity: 0;
+    border-radius: 100px;
   }
 
   100%{
     opacity: 1;
     transform: translate(50%, -50%) scale(1, 1);
+    border-radius: 5px;
   }
 }
 
