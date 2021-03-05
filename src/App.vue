@@ -3,28 +3,31 @@
     <Background @begin="beginAnimation" :bTheme='theme' />
 
     <Topbar :theme="theme" :isOpen="isOpen" :isGridMode='isGridMode' :isHelpOpen='isHelpOpen'
-    @themechange='changeTheme'
-    @imageinput='imageInput'
-    @changemaxcolumns='changeMaxColumns'
-    @removeimage='removeImage'
-    @selectmode='selectMode'
-    @samplepics='samplePics'
-    @help='help'
+      :isImagesEmpty='isImagesEmpty'
+      @themechange='changeTheme'
+      @imageinput='imageInput'
+      @changemaxcolumns='changeMaxColumns'
+      @removeimage='removeImage'
+      @selectmode='selectMode'
+      @samplepics='samplePics'
+      @help='help'
+      @slideshow='isSlideShow = !isSlideShow'
     />
 
     <WorkSpace
-    :isGridMode='isGridMode'
-    :isImagesEmpty='isImagesEmpty'
-    :images='images'
-    :theme='theme'
-    :maxColumns='maxColumns'
-    :remove='remove'
-    :toggleSelectMode='toggleSelectMode'
-    :isNotIntro='isNotIntro'
+      :isGridMode='isGridMode'
+      :isImagesEmpty='isImagesEmpty'
+      :images='images'
+      :theme='theme'
+      :maxColumns='maxColumns'
+      :remove='remove'
+      :toggleSelectMode='toggleSelectMode'
+      :isNotIntro='isNotIntro'
+      :isSlideShow='isSlideShow'
 
-    @imageinput='imageInput'
-    @deleteimage='deleteImage'
-    @multidelete='multiDelete'
+      @imageinput='imageInput'
+      @deleteimage='deleteImage'
+      @multidelete='multiDelete'
     />
 
     <Help :theme='theme' :isHelpOpen='isHelpOpen' @help='isHelpOpen = !isHelpOpen'/>
@@ -78,7 +81,8 @@ export default {
       remove: 0,
       isGridMode: false,
       toggleSelectMode: false,
-      isNotIntro: false
+      isNotIntro: false,
+      isSlideShow: false
     }
   },
   methods: {
@@ -145,7 +149,7 @@ export default {
       this.imagesSize();
     },
     changeViewMode(){
-      let tl = gsap.timeline({defaults: {duration: 0.5}});
+      let tl = gsap.timeline({defaults: {duration: 0.5, ease: 'power1.in'}});
       if(!this.isGridMode)
         tl
           .to('.grid-cell:nth-child(1)', 

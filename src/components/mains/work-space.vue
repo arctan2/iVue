@@ -1,22 +1,26 @@
 <template>
   <div id="work-space">
-    <NavLayout @nav='navTo' :preventNav='preventNav' v-if="!isGridMode"/>
+    <NavLayout 
+      @nav='userNavigation'
+      :preventNav='preventNav'
+      v-if="!isGridMode"
+    />
     <div style='position: relative; width: 100vw; height: 100vh;'>
       <Images
-      :images='images'
-      :currentIndex='currentIndex'
-      :next='next' 
-      :del='del'
-      :reRenderImages='reRenderImages'
+        :images='images'
+        :currentIndex='currentIndex'
+        :next='next' 
+        :del='del'
+        :reRenderImages='reRenderImages'
       />
 
       <GridView
-       :images='images' 
-       :maxColumns='maxColumns'
-       :toggleSelectMode='toggleSelectMode'
-       :isGridMode='isGridMode'
-       @fullscreen='selectAndExitGridMode'
-       @multidelete='multiDelete'
+        :images='images' 
+        :maxColumns='maxColumns'
+        :toggleSelectMode='toggleSelectMode'
+        :isGridMode='isGridMode'
+        @fullscreen='selectAndExitGridMode'
+        @multidelete='multiDelete'
       />
 
     </div>
@@ -35,6 +39,8 @@ import Images from './images';
 import NavLayout from '../nav-layout';
 import GridView from '../grid-view';
 import gsap from 'gsap';
+
+let slideShowInterval;
 
 export default {
   name: 'WorkSpace',
@@ -64,7 +70,8 @@ export default {
     remove: Number,
     isGridMode: Boolean,
     toggleSelectMode: Boolean,
-    isNotIntro: Boolean
+    isNotIntro: Boolean,
+    isSlideShow: Boolean
   },
   emits: ['imageinput', 'deleteimage', 'multidelete'],
   methods: {
@@ -81,6 +88,10 @@ export default {
       return {
         x, y, rx, ry
       }
+    },
+    userNavigation(dir){
+      if(this.isSlideShow) document.querySelector('.slide-show').click();
+      this.navTo(dir);
     },
     navTo(dir){
       let currentObj;
@@ -226,6 +237,14 @@ export default {
     },
     isImagesEmpty(){
       this.images.length === 0 ? this.preventNav = true : this.preventNav = false;
+    },
+    isSlideShow(){
+      if(this.isSlideShow){
+        slideShowInterval = setInterval(() => {
+
+        }, 2000)
+      }
+      else clearInterval(slideShowInterval);
     },
     isGridMode(){
       let tl = gsap.timeline();

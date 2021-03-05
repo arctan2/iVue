@@ -29,6 +29,12 @@
         <button class="sample-btn" @click="$emit('samplepics')">sample pics</button>
       </div>
 
+      <button style="margin-left: 10px;" 
+        :class="{'slide-show-active': isSlideShow, 'disabled-btn': isImagesEmpty}" class="slide-show"
+        @click="isSlideShow = !isSlideShow; $emit('slideshow')">
+        slide show
+      </button>
+
     </div>
   </div>
 </template>
@@ -40,13 +46,15 @@ export default {
   name: 'Topbar',
   props: {
     theme: String,
-    isGridMode: Boolean
+    isGridMode: Boolean,
+    isImagesEmpty: Boolean
   },
-  emits: ['imageinput', 'changemaxcolumns', 'removeimage', 'selectmode', 'samplepics'],
+  emits: ['imageinput', 'changemaxcolumns', 'removeimage', 'selectmode', 'samplepics', 'slideshow'],
   data(){
     return {
       isIntro: true,
-      maxColumns: 6
+      maxColumns: 6,
+      isSlideShow: false
     }
   },
   methods:{
@@ -89,17 +97,17 @@ export default {
 .dark-tool-bar{
   margin-right: 10%;
   background-color: rgb(37, 36, 36);
-  box-shadow: 0 0 3px rgb(168, 72, 233);
-  border-right: 3px solid rgb(116, 6, 219);
-  border-left: 3px solid rgb(116, 6, 219);
+  box-shadow: 0 0 3px rgb(93, 70, 110);
+  border-right: 2px solid rgb(116, 6, 219);
+  border-left: 2px solid rgb(116, 6, 219);
 }
 
 .light-tool-bar{
   margin-right: 10%;
   background-color: rgb(203, 192, 214);
   box-shadow: 0 0 4px rgb(42, 43, 43);
-  border-right: 3px solid rgb(32, 32, 32);
-  border-left: 3px solid rgb(32, 32, 32);
+  border-right: 2px solid rgb(32, 32, 32);
+  border-left: 2px solid rgb(32, 32, 32);
 }
 
 .operations{
@@ -163,7 +171,7 @@ export default {
   padding-top: 0px;
 }
 
-.select-mode, .sample-btn{
+.select-mode, .sample-btn, .slide-show{
   border-radius: 7px;
   width: 90px;
   height: 25px;
@@ -253,6 +261,26 @@ export default {
   pointer-events: none;
 }
 
+.slide-show{
+  background-color: rgb(45, 197, 113);
+  color: rgb(255, 255, 255);
+  height: 44px;
+  width: 70px;
+  white-space: pre;
+}
+
+.slide-show:hover{
+  background-color: rgb(36, 233, 102);
+}
+
+.slide-show:active{
+  background-color: rgb(13, 197, 83);
+}
+
+.slide-show-active, .slide-show-active:hover, .slide-show-active:active{
+  background-color: gray;
+  color: white;
+}
 
 </style>
 

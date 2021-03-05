@@ -1,8 +1,8 @@
 <template>
   <div class="logo">
     <div class="text" :class="theme + '-text-m'">i</div>
-    <span class="fade-text" :class="theme + '-text-sub'">MAGE </span>
-    <span class="text vue" :class="theme + '-vue'">Vue</span>
+    <div class="fade-text" :class="theme + '-text-sub'">MAGE </div>
+    <div class="text vue" :class="theme + '-vue'">Vue</div>
   </div>
 </template>
 
@@ -30,12 +30,13 @@ export default {
         gsap.timeline()
           .to('.logo', {pointerEvents: 'none'})
           .to(`.${this.theme}-text-m`, {opacity: 1, duration: 1, ease: 'power3.in'})
-          .to('.vue', {width: "100%"})
+          .to('.vue', {width: "100%", duration: 0.5})
           .to('.vue', {opacity: 1, ease: 'power2.out'})
-          .to('.vue', {overflowX: 'visible'})
           .to('.fade-text', {width: '100%', duration: 1, ease: 'power3.in'})
           .to('.fade-text', {opacity: 1, ease: 'power3.out', duration: 1.6})
           .to('.fade-text', {width: 0, duration: 0.8, ease: 'power5.in'})
+          .to('.logo', {width: 85, duration: 0.8}, '-=0.8')
+          .to('.fade-text', {display: 'none'})
           .call(() => {
             this.$emit('introend');
             this.isIntro = false;
@@ -49,15 +50,18 @@ export default {
 <style scoped>
 .logo{
   display: flex;
+  position: relative;
   flex-direction: row;
   justify-content: center;
-  width: max-content;
-  margin-left: 20%;
+  width: 156px;
   user-select: none;
+  margin-left: 20%;
+  transition: color 0.25s;
 }
 
 .text{
   font-size: 40px;
+  position: relative;
   display: inline-block;
   opacity: 0;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -80,7 +84,8 @@ export default {
 }
 
 .fade-text{
-  display: flex;
+  position: relative;
+  display: inline-flex;
   align-items: center;
   font-size: 26px;
   width: 0%;

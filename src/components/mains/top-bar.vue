@@ -1,17 +1,18 @@
 <template>
   <div class="top-bar" :class="theme">
     <LogoIntro
-     :theme='logoTheme' 
-     @introend='toolBar' 
-     @click="$emit('themechange')"
+      :theme='logoTheme' 
+      @introend='toolBar' 
+      @click="$emit('themechange')"
      />
-    <ToolBar :theme='toolBarTheme' :isGridMode='isGridMode'
-     @imageinput='imageInput'
-     @changemaxcolumns='changeMaxColumns'
-     @removeimage='$emit("removeimage")'
-     @selectmode='$emit("selectmode")'
-     @samplepics='$emit("samplepics")'
-     />
+    <ToolBar :theme='toolBarTheme' :isGridMode='isGridMode' :isImagesEmpty='isImagesEmpty'
+      @imageinput='imageInput'
+      @changemaxcolumns='changeMaxColumns'
+      @removeimage='$emit("removeimage")'
+      @selectmode='$emit("selectmode")'
+      @samplepics='$emit("samplepics")'
+      @slideshow='$emit("slideshow")'
+    />
 
     <button v-if="theme" class="help-icon"
       @click="$emit('help')"
@@ -31,13 +32,14 @@ export default {
     LogoIntro,
     ToolBar
   },
-  emits: ['themechange', 'imageinput', 
+  emits: ['themechange', 'imageinput', 'slideshow',
     'removeimage', 'changemaxcolumns', 'help', 'selectmode', 'samplepics'],
   props: {
     theme: String,
     isOpen: Boolean,
     isGridMode: Boolean,
-    isHelpOpen: Boolean
+    isHelpOpen: Boolean,
+    isImagesEmpty: Boolean
   },
   data(){
     return {
