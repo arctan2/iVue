@@ -76,7 +76,8 @@ export default {
       }
       if(dir){
         let tb = document.querySelector('.top-bar-open');
-        if(!tb.classList.contains('open')) tb.click();
+        if(tb)
+          if(!tb.classList.contains('open')) tb.click();
         this.$emit('nav', dir);
       }
         

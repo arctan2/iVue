@@ -11,7 +11,7 @@
       @selectmode='selectMode'
       @samplepics='samplePics'
       @help='help'
-      @slideshow='isSlideShow = !isSlideShow'
+      @slideshow='slideShow'
     />
 
     <WorkSpace
@@ -38,11 +38,12 @@
           'open': isOpen,
           'dark-drop-down-icon': isDarkTheme,
           'light-drop-down-icon': isDarkTheme === false,
-          'disable-open-arrow': isHelpOpen
+          'disable-open-arrow': isHelpOpen || isSlideShow
         }"
       @click='toggleOpen'></div>
-
-      <div class="toggle-grid-icon" @click="changeViewMode" v-if="images.length !== 0">
+      <div class="toggle-grid-icon" @click="changeViewMode"
+        v-if="(images.length !== 0) && !isSlideShow"
+      >
         <div v-for='i in 4' :key=i class="grid-cell"></div>
       </div>
     </div>
@@ -102,6 +103,10 @@ export default {
     },
     toggleOpen(){
       this.isOpen = !this.isOpen;
+    },
+    slideShow(){
+      this.toggleOpen();
+      this.isSlideShow = !this.isSlideShow;
     },
     changeTheme(){
       this.isDarkTheme = !this.isDarkTheme;

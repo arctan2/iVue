@@ -93,7 +93,7 @@ export default {
       if(this.isSlideShow) document.querySelector('.slide-show').click();
       this.navTo(dir);
     },
-    navTo(dir){
+    navTo(dir, ignorePrevent=false){
       let currentObj;
       let nextObj;
       let prevent = false;
@@ -103,7 +103,7 @@ export default {
         case 1:
           nextImageNotFound = this.currentIndex - this.maxColumns < 0;
           currentObj = this.getAnimationObject(0, 150, -30, 0);
-          nextObj = this.getAnimationObject(0, -100, -30, 0);
+          nextObj = this.getAnimationObject(0, -120, -30, 0);
           if(nextImageNotFound){
             prevent = true;
             break;
@@ -115,7 +115,7 @@ export default {
         case 7:
           nextImageNotFound = this.currentIndex + this.maxColumns > this.images.length - 1;
           currentObj = this.getAnimationObject(0, -150, 30, 0);
-          nextObj = this.getAnimationObject(0, 120, 30, 0);
+          nextObj = this.getAnimationObject(0, 130, 30, 0);
           if(nextImageNotFound){
             prevent = true;
             break;
@@ -128,7 +128,7 @@ export default {
           nextImageNotFound = this.currentIndex - 1 < this.rowLimits.lower;
           currentObj = this.getAnimationObject(150, 0, 0, 30);
           nextObj = this.getAnimationObject(-120, 0, 0, 30);
-          if(nextImageNotFound){
+          if(nextImageNotFound && !ignorePrevent){
             prevent = true;
             break;
           }
@@ -141,8 +141,8 @@ export default {
               ||
             (this.currentIndex + 1 > this.images.length - 1);
           currentObj = this.getAnimationObject(-150, 0, 0, -30);
-          nextObj = this.getAnimationObject(120, 0, 0, -30);
-          if(nextImageNotFound){
+          nextObj = this.getAnimationObject(130, 0, 0, -30);
+          if(nextImageNotFound && !ignorePrevent){
             prevent = true;
             break;
           }
@@ -212,7 +212,7 @@ export default {
           break;
         default: return;
       }
-      this.next = { currentObj, nextObj , prevent }
+      this.next = { currentObj, nextObj , prevent };
     },
     selectAndExitGridMode(selectedImageIndex){
       this.currentIndex = selectedImageIndex;
@@ -237,12 +237,23 @@ export default {
     },
     isImagesEmpty(){
       this.images.length === 0 ? this.preventNav = true : this.preventNav = false;
+      // removes the existing image when in grid mode and user clears all images
+      if(this.images.length === 0)
+        this.reRenderImages = !this.reRenderImages;
     },
     isSlideShow(){
       if(this.isSlideShow){
+        let dir = 5;
+        if(this.images.length < 2) return;
+        if(this.currentIndex === this.images.length - 1) dir = 3;
+        this.navTo(dir, true);
         slideShowInterval = setInterval(() => {
-
-        }, 2000)
+          this.navTo(dir, true);
+          if(this.currentIndex === this.images.length - 1)
+            dir = 3;
+          else if(this.currentIndex === 0)
+            dir = 5;
+        }, 3000)
       }
       else clearInterval(slideShowInterval);
     },
@@ -305,14 +316,12 @@ export default {
 
 .add-new-images:hover{
   background-color: rgb(79, 77, 87);
-  color: rgb(160, 138, 238);
-  box-shadow: 0 0 5px rgb(21, 255, 0);
+  box-shadow: 0 0 5px rgb(150, 151, 199);
 }
 
 .add-new-images:active{
   background-color: rgb(77, 77, 77);
-  color: rgb(191, 184, 214);
-  box-shadow: 0 0 10px rgb(21, 255, 0);  
+  box-shadow: 0 0 10px rgb(101, 191, 214);  
 }
 
 .show{

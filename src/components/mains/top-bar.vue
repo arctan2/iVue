@@ -74,19 +74,17 @@ export default {
       }
     },
     isOpen(){
-      if(this.isOpen){
+      if(this.isOpen)
         gsap.timeline()
           .to('.top-bar-open', {pointerEvents: 'none', duration: 0})
           .to('.top-bar', {rotate: -5, y: '30%', ease: 'power2.in'})
           .to('.top-bar', {rotate: 0, y: "0%", ease: 'power2.out'}, '-=0.2')
           .to('.top-bar-open', {pointerEvents: 'all', duration: 0})
-      }
-      else {
+      else
         gsap.timeline()
           .to('.top-bar-open', {pointerEvents: 'none', duration: 0})
           .to('.top-bar', {y: '100%'})
           .to('.top-bar-open', {pointerEvents: 'all', duration: 0})
-      }
     }
   }
 }

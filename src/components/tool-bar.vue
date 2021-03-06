@@ -30,8 +30,8 @@
       </div>
 
       <button style="margin-left: 10px;" 
-        :class="{'slide-show-active': isSlideShow, 'disabled-btn': isImagesEmpty}" class="slide-show"
-        @click="isSlideShow = !isSlideShow; $emit('slideshow')">
+        :class="{'disabled-btn': isImagesEmpty || isGridMode}" class="slide-show"
+        @click="$emit('slideshow')">
         slide show
       </button>
 
@@ -47,14 +47,14 @@ export default {
   props: {
     theme: String,
     isGridMode: Boolean,
-    isImagesEmpty: Boolean
+    isImagesEmpty: Boolean,
+    isSlideShow: Boolean
   },
   emits: ['imageinput', 'changemaxcolumns', 'removeimage', 'selectmode', 'samplepics', 'slideshow'],
   data(){
     return {
       isIntro: true,
-      maxColumns: 6,
-      isSlideShow: false
+      maxColumns: 6
     }
   },
   methods:{
@@ -256,11 +256,6 @@ export default {
   background-color: rgb(96, 98, 245);  
 }
 
-.disabled-btn{
-  background-color: rgb(92, 90, 90);
-  pointer-events: none;
-}
-
 .slide-show{
   background-color: rgb(45, 197, 113);
   color: rgb(255, 255, 255);
@@ -277,10 +272,12 @@ export default {
   background-color: rgb(13, 197, 83);
 }
 
-.slide-show-active, .slide-show-active:hover, .slide-show-active:active{
-  background-color: gray;
-  color: white;
+.disabled-btn{
+  background-color: rgb(92, 90, 90);
+  pointer-events: none;
 }
+
+
 
 </style>
 
