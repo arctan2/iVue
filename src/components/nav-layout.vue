@@ -1,5 +1,5 @@
 <template>
-  <div id="nav-layout"
+  <div id="nav-layout" ref="navLayout"
     @click='navTo'
     @touchstart='beginPoint'
     @touchmove='dragStart'
@@ -107,7 +107,7 @@ export default {
     }
   },
   mounted(){
-    this.nl = document.getElementById('nav-layout');
+    this.nl = this.$refs.navLayout;
     this.h = this.nl.clientHeight;
     this.w = this.nl.clientWidth;
     this.hD3 = this.h/3;

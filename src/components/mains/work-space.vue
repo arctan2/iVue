@@ -26,7 +26,7 @@
     </div>
     
     <label class='add-new-images' :class="{'show': isImagesEmpty && isNotIntro}">
-      <input accept="image/*" class="image-input" type="file" multiple @input="inputImages">
+      <input accept="image/*" class="image-input" ref="imageInput" type="file" multiple @input="inputImages">
       <span class="icon">
         +
       </span>
@@ -78,7 +78,7 @@ export default {
     inputImages(e){
       let images = e.target.files;
       this.$emit('imageinput', images);
-      document.querySelector('.image-input').value = '';
+      this.$refs.imageInput.value = '';
     },
     changeRowLimits(){
       this.rowLimits.lower = parseInt(this.currentIndex / this.maxColumns) * this.maxColumns;

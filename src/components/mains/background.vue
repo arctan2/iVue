@@ -3,7 +3,7 @@
     Choose your theme
   </div>
   <div class="final-background" :class="color ? color : ''">
-    <div v-if="showOptions" class="options" @click='pickTheme'></div>
+    <div v-if="showOptions" ref="options" class="options" @click='pickTheme'></div>
   </div>
 </template>
 
@@ -21,7 +21,6 @@ export default {
       color: null,
       showOptions: true,
       rotateDeg: 0,
-      back: null,
       refresh: null,
       theme: null
     }
@@ -42,7 +41,7 @@ export default {
         this.changeTheme('dark');
         this.theme = 'dark';
       }
-      this.back.style.pointerEvents = 'none';
+      this.$refs.options.style.pointerEvents = 'none';
       window.removeEventListener('resize', this.changeEvent);
     },
     changeTheme(color){
@@ -62,10 +61,13 @@ export default {
     changeEvent(){
       clearInterval(this.refresh);
       this.refresh = setTimeout(() => {
-        if(this.y !== this.back.clientHeight)
-          this.y = this.back.clientHeight
-        if(this.x !== this.back.clientWidth)
-          this.x = this.back.clientWidth
+        let options = this.$refs.options;
+
+        if(this.y !== options.clientHeight)
+          this.y = options.clientHeight
+        if(this.x !== options.clientWidth)
+          this.x = options.clientWidth
+
         this.refresh = null;
       }, 500)
     }
@@ -84,14 +86,11 @@ export default {
     }
   },
   mounted(){
-    let back = document.querySelector(".options");
-    this.back = back;
-    let x = back.clientWidth;
-    let y = back.clientHeight;
-    this.y = y;
-    this.x = x;
-    this.v1 = [-x, y];
-    this.rotateDeg = Math.atan(x/y) * (180 / Math.PI)
+    let options = this.$refs.options;
+    this.x = options.clientWidth;
+    this.y = options.clientHeight;
+    this.v1 = [-this.x, this.y];
+    this.rotateDeg = Math.atan(this.x/this.y) * (180 / Math.PI)
     window.addEventListener('resize', this.changeEvent)
   }
 }

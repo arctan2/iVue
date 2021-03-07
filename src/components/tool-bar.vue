@@ -3,7 +3,7 @@
     <div class="operations">
 
       <label class="op add">
-        <input accept="image/*" class="tool-bar-image-input" type="file" multiple @input="inputImages">
+        <input accept="image/*" class="tool-bar-image-input" ref="toolBarImgInput" type="file" multiple @input="inputImages">
         <div class="icon">+</div>
         <div class="op-name">add</div>
       </label>
@@ -61,7 +61,7 @@ export default {
     inputImages(e){
       let images = e.target.files;
       this.$emit('imageinput', images);
-      document.querySelector('.tool-bar-image-input').value = '';
+      this.$refs.toolBarImgInput.value = '';
     }
   },
   watch: {

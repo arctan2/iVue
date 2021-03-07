@@ -33,7 +33,7 @@
     <Help :theme='theme' :isHelpOpen='isHelpOpen' @help='isHelpOpen = !isHelpOpen'/>
 
     <div>
-      <div class="top-bar-open"
+      <div class="top-bar-open" ref="topbar"
       :class="{
           'open': isOpen,
           'dark-drop-down-icon': isDarkTheme,
@@ -41,7 +41,7 @@
           'disable-open-arrow': isHelpOpen || isSlideShow
         }"
       @click='toggleOpen'></div>
-      <div class="toggle-grid-icon" @click="changeViewMode"
+      <div class="toggle-grid-icon" ref="gridIcon" @click="changeViewMode"
         v-if="(images.length !== 0) && !isSlideShow"
       >
         <div v-for='i in 4' :key=i class="grid-cell"></div>
@@ -96,7 +96,7 @@ export default {
       else this.isDarkTheme = false;
       gsap.to('.top-bar-open', {opacity: 1, delay: 9, pointerEvents: 'all'})
       setTimeout(() => this.isNotIntro = true, 9500)
-      setTimeout(() => document.querySelector('.top-bar-open').click(), 2000)
+      setTimeout(() => this.$refs.topbar.click(), 2000)
     },
     help(){
       this.isHelpOpen = !this.isHelpOpen;
@@ -150,7 +150,7 @@ export default {
           this.images.splice(index, 1);
       }
         
-      document.querySelector('.toggle-grid-icon').classList.add('disabled-grid-icon');
+      this.$refs.gridIcon.classList.add('disabled-grid-icon');
       this.imagesSize();
     },
     changeViewMode(){
