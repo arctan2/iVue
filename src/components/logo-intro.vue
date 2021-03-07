@@ -33,9 +33,9 @@ export default {
           .to('.vue', {width: "100%", duration: 0.5})
           .to('.vue', {opacity: 1, ease: 'power2.out'})
           .to('.fade-text', {width: '100%', duration: 1, ease: 'power3.in'})
-          .to('.fade-text', {opacity: 1, ease: 'power3.out', duration: 1.6})
-          .to('.fade-text', {width: 0, duration: 0.8, ease: 'power5.in'})
-          .to('.logo', {width: 85, duration: 0.8}, '-=0.8')
+          .to('.fade-text', {opacity: 1, ease: 'power3.out', duration: 1.2})
+          .to('.fade-text', {width: "0%", duration: 0.8, ease: 'sine.inOut'})
+          .to('.logo', {width: 85, duration: 0.8, ease: 'sine.inOut'}, '-=0.8')
           .to('.fade-text', {display: 'none'})
           .call(() => {
             this.$emit('introend');
